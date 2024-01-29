@@ -18,16 +18,31 @@ const errorDisplay = document.getElementById("errorDisplay");
 
 /*************Registration form******************************** */
 let username = regForm.elements["username"];
-console.log(username)
-username.addEventListener("change", (e) =>{
-    e.preventDefault();
-    if(! validateUsername(e.target.value)){
-        showError("Invalid user name, must contain at least two unique characters!", username)        
-    }
-});
+// username.addEventListener("change", (e) =>{
+//     e.preventDefault();
+//     if(! validateUsername(e.target.value)){
+//         showError("Invalid user name, must contain at least two unique characters!", username)        
+//     }
+// });
+
+regForm.addEventListener("submit", regFormCheck)
 
 /*************************************************************** */
 /*************Validation functions****************************** */
+function regFormCheck(event){
+    event.preventDefault();
+    let errors ="";
+    if(!validateUsername(username.value)){
+        errors += "\n Invalid user name, must contain at least two unique characters!";
+    }
+    if(errors.length>0)
+    {
+        event.returnValue = false;
+        showError(errors);
+        return false;
+    }
+    return true
+}
 function validateUsername(username){
     console.log(username)
     username = String(username).toLowerCase();
