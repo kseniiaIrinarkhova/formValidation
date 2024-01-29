@@ -20,7 +20,9 @@
 
         <!-- Registration Form -->
         <form id="registration">
-          <input name="username" type="text" placeholder="Username" />
+          <input name="username" type="text" placeholder="Username" required minlength="4" 
+          title = "Username should be at least 4 characters and cannot contain any special characters or whitespace"
+          pattern = "\w{4,}" />
           <span class="input-icon"><i class="fa-solid fa-user"></i></span><br />
 
           <input name="email" type="text" placeholder="Email" />
