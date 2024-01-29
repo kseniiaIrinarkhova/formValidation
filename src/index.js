@@ -32,13 +32,18 @@ regForm.addEventListener("submit", regFormCheck)
 function regFormCheck(event){
     event.preventDefault();
     let errors ="";
+    let inputField = null;
     if(!validateUsername(username.value)){
+        
         errors += "\n Invalid user name, must contain at least two unique characters!";
+        //add focus only for the 1st field
+        if (inputField === null) inputField = username;
+        
     }
     if(errors.length>0)
     {
         event.returnValue = false;
-        showError(errors);
+        showError(errors, inputField);
         return false;
     }
     return true
