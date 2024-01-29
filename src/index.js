@@ -22,7 +22,7 @@ console.log(username)
 username.addEventListener("change", (e) =>{
     e.preventDefault();
     if(! validateUsername(e.target.value)){
-        showError("Invalid user name, must contain at least two unique characters!")        
+        showError("Invalid user name, must contain at least two unique characters!", username)        
     }
 });
 
@@ -40,9 +40,9 @@ function validateUsername(username){
 
 
 /***************************************************************** */
-function showError(message){
+function showError(message, object){
     let err = errorDisplay.appendChild(document.createElement("h3"));
-    username.focus();
+    if(object) object.focus();
     err.textContent = message;
     errorDisplay.style.display = "block";
 }
