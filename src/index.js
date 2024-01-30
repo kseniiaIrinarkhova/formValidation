@@ -59,12 +59,12 @@ passwordCheck.addEventListener("input", (e) => {
     //find the index of last character
     let index = pwd.length - 1;
     //check if we have password and our passwordcheck is the same or less length
-    if(password.value.length > index){
+    if (password.value.length > index) {
         //if last character in password check is not the same as in password - show an error
         if (password.value[index] !== pwd[index]) showError("Passwords do not match", passwordCheck);
         return false;
     }
-    else{
+    else {
         //threr is no password or password check longer than password
         showError("Passwords do not match", passwordCheck);
         return false;
@@ -76,28 +76,31 @@ regForm.addEventListener("submit", regFormCheck);
 
 /*********************Login form******************************** */
 
-loginForm.addEventListener("submit", (event) =>{
+loginForm.addEventListener("submit", (event) => {
     event.preventDefault();
     //check username
     let username = loginForm.elements["username"];
-    if(!userExist(username.value)){
+    if (!userExist(username.value)) {
         showError("Username does not exist!", username);
         return false;
     }
-
+    //check if password is correct for this user
     let password = loginForm.elements["password"];
     if (!userDataCheck(username.value, password.value)) {
         showError("Password is incorrect");
         return false;
     }
-    else{
-        if (loginForm.querySelector("input[type = 'checkbox']").checked){
-            alert(`Welcome, ${username.value}! Your information is saved for this page and you will be auto login next time.`);
-        }else{
+
+    //username and password are valid. greet user
+    //if "Keep me logged in" is checked
+    if (loginForm.querySelector("input[type = 'checkbox']").checked) {
+        alert(`Welcome, ${username.value}! Your information is saved for this page and you will be auto login next time.`);
+    } else {
         alert(`Welcome, ${username.value}!`);
-        }
-        clearForm(loginForm);
     }
+    //clear form
+    clearForm(loginForm);
+
 });
 
 /*************************************************************** */
@@ -135,14 +138,14 @@ function regFormCheck(event) {
         if (inputField === null) inputField = password;
     }
     //check password match
-    if(password.value !== passwordCheck.value){
+    if (password.value !== passwordCheck.value) {
         errors += "\n Passwords do not match!"
         //add focus only for the 1st field
         if (inputField === null) inputField = passwordCheck;
     }
     //check terms and conditions
     let isAccepted = regForm.querySelector("input[type = 'checkbox']").checked;
-    if(!isAccepted){
+    if (!isAccepted) {
         errors += "\n The terms and conditions must be accepted."
     }
     //if we got any error messages - validation failed
@@ -154,9 +157,9 @@ function regFormCheck(event) {
 
     //form is valid
     let user = saveUser();
-    if (user !== null){
+    if (user !== null) {
         clearForm(regForm);
-        alert(`Congrads, ${user.username}! You are registred!`)        
+        alert(`Congrads, ${user.username}! You are registred!`)
     }
     return true
 }
@@ -182,11 +185,11 @@ function validateUsername(username) {
         }
     }
     if (!isvalid) errors += "Invalid user name, must contain at least two unique characters!";
-    
+
     //try to find the same user in localStodage
     let userFromLS = localStorage.getItem(username);
     console.log(userFromLS)
-    if (userFromLS !== null) errors +=  username + " is already taken!" ;
+    if (userFromLS !== null) errors += username + " is already taken!";
 
     return errors;
 }
@@ -232,7 +235,7 @@ function validatePassword(password) {
         regex = new RegExp(username.value);
         if (regex.test(password.toLowerCase())) errorMessages += "\n Password cannot contain the username."
     }
-    
+
     return errorMessages;
 }
 
@@ -257,28 +260,40 @@ function showError(message, object) {
  * Save user after form validation
  * @returns user object
  */
-function saveUser(){
-let newUser = {};
-newUser["username"] = username.value.toLowerCase();
-newUser["email"] = email.value.toLowerCase();
-newUser["password"] = password.value;
-localStorage.setItem(newUser.username, JSON.stringify(newUser));
+function saveUser() {
+    let newUser = {};
+    newUser["username"] = username.value.toLowerCase();
+    newUser["email"] = email.value.toLowerCase();
+    newUser["password"] = password.value;
+    localStorage.setItem(newUser.username, JSON.stringify(newUser));
     //console.log(JSON.parse(localStorage.getItem(newUser.username)));
-return newUser;
+    return newUser;
 }
 
 /**
- * clear all registration form
+ * function for cleaning all form data
+ * @param {object} form form referance
  */
-function clearForm(form){
+function clearForm(form) {
     form.reset();
 }
 
-function userExist(username){
-   return localStorage.getItem(username.toLowerCase()) !== null ;
+/**
+ * check if we have such user in localStorage
+ * @param {string} username 
+ * @returns true if user exists, otherwise - false
+ */
+function userExist(username) {
+    return localStorage.getItem(username.toLowerCase()) !== null;
 }
 
-function userDataCheck(username, password){
+/**
+ * check username-password pair
+ * @param {string} username 
+ * @param {string} password 
+ * @returns true if password correct for username, otherwise - false
+ */
+function userDataCheck(username, password) {
     //as we checked firstly username, user should exist in this check
     let userData = JSON.parse(localStorage.getItem(username.toLowerCase()));
     return userData.password === password;
