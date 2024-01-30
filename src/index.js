@@ -95,6 +95,8 @@ function validatePassword(password){
     let regex = new RegExp("([a-z]{1,}[A-Z]{1,})|([A-Z]{1,}[a-z]{1,})");
     if (!regex.test(password)) errorMessages += "\n Passwords must have at least one uppercase and one lowercase letter."
 // Passwords must contain at least one number.
+regex = new RegExp("[0-9]+")
+    if (!regex.test(password)) errorMessages += "\n Passwords must contain at least one number."
 // Passwords must contain at least one special character.
 // Passwords cannot contain the word "password"(uppercase, lowercase, or mixed).
 // Passwords cannot contain the username.
@@ -103,7 +105,7 @@ function validatePassword(password){
 
 /***************************************************************** */
 function showError(message, object){
-    let err = errorDisplay.appendChild(document.createElement("h3"));
+    let err = errorDisplay.appendChild(document.createElement("p"));
     if(object) object.focus();
     err.textContent = message;
     errorDisplay.style.display = "block";
