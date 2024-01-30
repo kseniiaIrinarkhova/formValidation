@@ -23,8 +23,9 @@ let username = regForm.elements["username"];
 //on change event
 username.addEventListener("change", (e) => {
     e.preventDefault();
-    if (!validateUsername(e.target.value)) {
-        showError("Invalid user name, must contain at least two unique characters!", username)
+    let message = validateUsername(e.target.value)
+    if (message) {
+        showError(message, password);
     }
 });
 
@@ -87,9 +88,10 @@ function regFormCheck(event) {
     let errors = "";
 
     //check username
-    if (!validateUsername(username.value)) {
+    let usernameErrors = validateUsername(username.value);
+    if (usernameErrors) {
 
-        errors += "\n Invalid user name, must contain at least two unique characters!";
+        errors += usernameErrors;
         //add focus only for the 1st field
         if (inputField === null) inputField = username;
 
@@ -136,18 +138,31 @@ function regFormCheck(event) {
 /**
  * Function for username validation
  * @param {string} username 
- * @returns true if username is valid, false if is not
+ * @returns error message
  */
 function validateUsername(username) {
     //username would be in lowercase    
     username = String(username).toLowerCase();
+    //return value
+    let isvalid = false;
+    //error message
+    let errors = "";
     //check if we have any other character then the first one
     for (let i = 1; i < username.length; i++) {
         //if we find another character - username is valid
-        if (username[i] !== username[0]) return true;
+        if (username[i] !== username[0]) {
+            isvalid = true;
+            break;
+        }
     }
-    //do not find unique 2 characters. username is invalid
-    return false;
+    if (!isvalid) errors += "Invalid user name, must contain at least two unique characters!";
+    
+    //try to find the same user in localStodage
+    let userFromLS = localStorage.getItem(username);
+    console.log(userFromLS)
+    if (userFromLS !== null) errors +=  username + " is already taken!" ;
+
+    return errors;
 }
 
 /**
