@@ -246,6 +246,10 @@ function validatePassword(password) {
  * @param {DOM object} object  - optional
  */
 function showError(message, object) {
+    if (errorDisplay.firstChild)
+    {
+        errorDisplay.removeChild(errorDisplay.firstChild);
+    }
     //create new element in errorBox
     let err = errorDisplay.appendChild(document.createElement("pre"));
     //If we have invalid object - focus on it
@@ -254,6 +258,11 @@ function showError(message, object) {
     err.textContent = message;
     //show error box on page
     errorDisplay.style.display = "block";
+
+    setTimeout(() => {
+        errorDisplay.removeChild(err);
+        errorDisplay.style.display = "none";
+    }, 5000);
 }
 
 /**
