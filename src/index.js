@@ -35,6 +35,14 @@ email.addEventListener("change", (e)=>{
 })
 
 let password = regForm.elements["password"];
+password.addEventListener("change",(e)=>{
+    e.preventDefault();
+    let message = validatePassword(e.target.value)
+    if(message.length > 0)
+    {
+        showError(message, password);
+    }
+})
 
 regForm.addEventListener("submit", regFormCheck)
 
@@ -81,6 +89,17 @@ function validateEmail(email){
     return true;
 }
 
+function validatePassword(password){
+    let errorMessages = "";
+// Passwords must have at least one uppercase and one lowercase letter.
+    let regex = new RegExp("([a-z]{1,}[A-Z]{1,})|([A-Z]{1,}[a-z]{1,})");
+    if (!regex.test(password)) errorMessages += "\n Passwords must have at least one uppercase and one lowercase letter."
+// Passwords must contain at least one number.
+// Passwords must contain at least one special character.
+// Passwords cannot contain the word "password"(uppercase, lowercase, or mixed).
+// Passwords cannot contain the username.
+    return errorMessages;
+}
 
 /***************************************************************** */
 function showError(message, object){
