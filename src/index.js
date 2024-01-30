@@ -49,7 +49,7 @@ passwordCheck.addEventListener("input", (e) => {
     let pwd = e.target.value
     let index = pwd.length - 1;
     if(password.value.length > index){
-        if (password.value[index] !== pwd[index]) showError("Passwords donot match", passwordCheck);
+        if (password.value[index] !== pwd[index]) showError("Passwords do not match", passwordCheck);
         return false;
     }
     else{
@@ -82,11 +82,17 @@ function regFormCheck(event) {
         errors += pwdErrors;
         if (inputField === null) inputField = password;
     }
+    if(password.value !== passwordCheck.value){
+        errors += "\n Passwords do not match!"
+        //add focus only for the 1st field
+        if (inputField === null) inputField = passwordCheck;
+    }
     if (errors.length > 0) {
         event.returnValue = false;
         showError(errors, inputField);
         return false;
     }
+
     return true
 }
 function validateUsername(username) {
