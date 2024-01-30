@@ -87,6 +87,11 @@ function regFormCheck(event) {
         //add focus only for the 1st field
         if (inputField === null) inputField = passwordCheck;
     }
+    //check terms and conditions
+    let isAccepted = regForm.querySelector("input[type = 'checkbox']").checked;
+    if(!isAccepted){
+        errors += "\n The terms and conditions must be accepted."
+    }
     if (errors.length > 0) {
         event.returnValue = false;
         showError(errors, inputField);
