@@ -17,21 +17,25 @@ const errorDisplay = document.getElementById("errorDisplay");
 /**************Event Handlers********************************** */
 
 /*************Registration form******************************** */
+
 let username = regForm.elements["username"];
-// username.addEventListener("change", (e) =>{
-//     e.preventDefault();
-//     if(! validateUsername(e.target.value)){
-//         showError("Invalid user name, must contain at least two unique characters!", username)        
-//     }
-// });
+username.addEventListener("change", (e) =>{
+    e.preventDefault();
+    if(! validateUsername(e.target.value)){
+        showError("Invalid user name, must contain at least two unique characters!", username)        
+    }
+});
 
 let email = regForm.elements["email"];
-// email.addEventListener("change", (e)=>{
-//     e.preventDefault();
-//     if(!validateEmail(e.target.value)){
-//         showError("The email must not be from the domain 'example.com'!",email);
-//     }
-// })
+email.addEventListener("change", (e)=>{
+    e.preventDefault();
+    if(!validateEmail(e.target.value)){
+        showError("The email must not be from the domain 'example.com'!",email);
+    }
+})
+
+let password = regForm.elements["password"];
+
 regForm.addEventListener("submit", regFormCheck)
 
 /*************************************************************** */
