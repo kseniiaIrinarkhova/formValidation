@@ -125,6 +125,11 @@ function regFormCheck(event) {
     }
 
     //form is valid
+    let user = saveUser();
+    if (user !== null){
+        alert(`Congrads, ${user.username}! You are registred!`)
+        //clearRegForm();
+    }
     return true
 }
 
