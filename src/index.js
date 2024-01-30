@@ -84,6 +84,16 @@ loginForm.addEventListener("submit", (event) =>{
         showError("Username does not exist!", username);
         return false;
     }
+
+    let password = loginForm.elements["password"];
+    if (!userDataCheck(username.value, password.value)) {
+        showError("Password is incorrect");
+        return false;
+    }
+    else{
+        alert(`Welcome, ${username.value}!`);
+        clearForm(loginForm);
+    }
 });
 
 /*************************************************************** */
@@ -141,7 +151,7 @@ function regFormCheck(event) {
     //form is valid
     let user = saveUser();
     if (user !== null){
-        clearRegForm();
+        clearForm(regForm);
         alert(`Congrads, ${user.username}! You are registred!`)        
     }
     return true
@@ -256,10 +266,16 @@ return newUser;
 /**
  * clear all registration form
  */
-function clearRegForm(){
-    regForm.reset();
+function clearForm(form){
+    form.reset();
 }
 
 function userExist(username){
    return localStorage.getItem(username.toLowerCase()) !== null ;
+}
+
+function userDataCheck(username, password){
+    //as we checked firstly username, user should exist in this check
+    let userData = JSON.parse(localStorage.getItem(username.toLowerCase()));
+    return userData.password === password;
 }
