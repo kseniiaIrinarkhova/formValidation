@@ -91,7 +91,11 @@ loginForm.addEventListener("submit", (event) =>{
         return false;
     }
     else{
+        if (loginForm.querySelector("input[type = 'checkbox']").checked){
+            alert(`Welcome, ${username.value}! Your information is saved for this page and you will be auto login next time.`);
+        }else{
         alert(`Welcome, ${username.value}!`);
+        }
         clearForm(loginForm);
     }
 });
