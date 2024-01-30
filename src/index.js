@@ -72,7 +72,19 @@ passwordCheck.addEventListener("input", (e) => {
 })
 
 //event listener on submit event
-regForm.addEventListener("submit", regFormCheck)
+regForm.addEventListener("submit", regFormCheck);
+
+/*********************Login form******************************** */
+
+loginForm.addEventListener("submit", (event) =>{
+    event.preventDefault();
+    //check username
+    let username = loginForm.elements["username"];
+    if(!userExist(username.value)){
+        showError("Username does not exist!", username);
+        return false;
+    }
+});
 
 /*************************************************************** */
 /*************Validation functions****************************** */
@@ -246,4 +258,8 @@ return newUser;
  */
 function clearRegForm(){
     regForm.reset();
+}
+
+function userExist(username){
+   return localStorage.getItem(username.toLowerCase()) !== null ;
 }
