@@ -127,6 +127,7 @@ function regFormCheck(event) {
     //form is valid
     let user = saveUser();
     if (user !== null){
+        console.log(user);
         alert(`Congrads, ${user.username}! You are registred!`)
         //clearRegForm();
     }
@@ -210,4 +211,19 @@ function showError(message, object) {
     err.textContent = message;
     //show error box on page
     errorDisplay.style.display = "block";
+}
+
+
+function saveUser(){
+let newUser = {};
+newUser["username"] = username.value.toLowerCase();
+newUser["email"] = email.value.toLowerCase();
+newUser["password"] = password.value;
+console.log("save")
+console.log(newUser.username);
+    console.log(JSON.stringify(newUser));
+localStorage.setItem(newUser.username, JSON.stringify(newUser));
+    console.log(JSON.parse(localStorage.getItem(newUser.username)));
+    console.log("save end")
+return newUser;
 }
