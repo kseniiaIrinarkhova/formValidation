@@ -25,7 +25,10 @@
           pattern = "\w{4,}" />
           <span class="input-icon"><i class="fa-solid fa-user"></i></span><br />
 
-          <input name="email" type="text" placeholder="Email" />
+          <input name="email" type="text" placeholder="Email" 
+          pattern="\w+@{1}[a-zA-Z]{1,}\.[a-zA-Z]{2,3}"
+          title = "Please enter a valid email address. Should be like email@example.com"
+          required/>
           <span class="input-icon"><i class="fa-solid fa-envelope"></i></span
           ><br />
 
