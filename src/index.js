@@ -25,6 +25,13 @@ let username = regForm.elements["username"];
 //     }
 // });
 
+let email = regForm.elements["email"];
+email.addEventListener("change", (e)=>{
+    e.preventDefault();
+    if(!validateEmail(e.target.value)){
+        showError("The email must not be from the domain 'example.com'!",email);
+    }
+})
 regForm.addEventListener("submit", regFormCheck)
 
 /*************************************************************** */
@@ -57,6 +64,13 @@ function validateUsername(username){
     return false;
 }
 
+function validateEmail(email){
+    console.log(email);
+    email = String(email).toLowerCase();
+    let regex = new RegExp(".*@example\.com$")
+    if (regex.test(email)) return false;
+    return true;
+}
 
 
 /***************************************************************** */
