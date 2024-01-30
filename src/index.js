@@ -101,6 +101,8 @@ regex = new RegExp("[0-9]+")
 regex = new RegExp("\W+");
     if (!regex.test(password)) errorMessages += "\n Password must contain at least one special character."
 // Passwords cannot contain the word "password"(uppercase, lowercase, or mixed).
+regex = new RegExp("password")
+    if (regex.test(password.toLowerCase())) errorMessages += "\n Password cannot contain the word 'password'."
 // Passwords cannot contain the username.
     return errorMessages;
 }
