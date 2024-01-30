@@ -26,12 +26,12 @@ let username = regForm.elements["username"];
 // });
 
 let email = regForm.elements["email"];
-email.addEventListener("change", (e)=>{
-    e.preventDefault();
-    if(!validateEmail(e.target.value)){
-        showError("The email must not be from the domain 'example.com'!",email);
-    }
-})
+// email.addEventListener("change", (e)=>{
+//     e.preventDefault();
+//     if(!validateEmail(e.target.value)){
+//         showError("The email must not be from the domain 'example.com'!",email);
+//     }
+// })
 regForm.addEventListener("submit", regFormCheck)
 
 /*************************************************************** */
@@ -46,6 +46,11 @@ function regFormCheck(event){
         //add focus only for the 1st field
         if (inputField === null) inputField = username;
         
+    }
+    if(!validateEmail(email.value)){
+        errors += "\n The email must not be from the domain 'example.com'!"
+        //add focus only for the 1st field
+        if (inputField === null) inputField = email;
     }
     if(errors.length>0)
     {
