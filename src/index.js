@@ -63,6 +63,11 @@ function regFormCheck(event) {
         //add focus only for the 1st field
         if (inputField === null) inputField = email;
     }
+    let pwdErrors = validatePassword(password.value);
+    if(pwdErrors){
+        errors += pwdErrors;
+        if (inputField === null) inputField = password;
+    }
     if (errors.length > 0) {
         event.returnValue = false;
         showError(errors, inputField);
@@ -107,7 +112,6 @@ function validatePassword(password) {
         if (regex.test(password.toLowerCase())) errorMessages += "\n Password cannot contain the username."
     }
     return errorMessages;
-
 }
 
 /***************************************************************** */
