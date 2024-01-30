@@ -42,7 +42,21 @@ password.addEventListener("change", (e) => {
         showError(message, password);
     }
 })
+let passwordCheck = regForm.elements["passwordCheck"];
 
+passwordCheck.addEventListener("input", (e) => {
+    console.log(e.target.value);
+    let pwd = e.target.value
+    let index = pwd.length - 1;
+    if(password.value.length > index){
+        if (password.value[index] !== pwd[index]) showError("Passwords donot match", passwordCheck);
+        return false;
+    }
+    else{
+        showError("Passwords donot match", passwordCheck);
+        return false;
+    }
+})
 regForm.addEventListener("submit", regFormCheck)
 
 /*************************************************************** */
@@ -64,7 +78,7 @@ function regFormCheck(event) {
         if (inputField === null) inputField = email;
     }
     let pwdErrors = validatePassword(password.value);
-    if(pwdErrors){
+    if (pwdErrors) {
         errors += pwdErrors;
         if (inputField === null) inputField = password;
     }
@@ -95,7 +109,7 @@ function validateEmail(email) {
 function validatePassword(password) {
     let errorMessages = "";
     // Passwords must have at least one uppercase and one lowercase letter.
-    let regex = new RegExp("([a-z]{1,}[A-Z]{1,})|([A-Z]{1,}[a-z]{1,})");
+    let regex = new RegExp("([a-z]{1,}.*[A-Z]{1,})|([A-Z]{1,}.*[a-z]{1,})");
     if (!regex.test(password)) errorMessages += "\n Password must have at least one uppercase and one lowercase letter."
     // Passwords must contain at least one number.
     regex = new RegExp("[0-9]+")
