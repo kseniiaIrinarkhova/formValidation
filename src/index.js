@@ -115,6 +115,7 @@ function regFormCheck(event) {
     event.preventDefault();
     //all error messages
     let errors = "";
+    let inputField = null;
 
     //check username
     let usernameErrors = validateUsername(username.value);
@@ -225,7 +226,7 @@ function validatePassword(password) {
     regex = new RegExp("[0-9]+")
     if (!regex.test(password)) errorMessages += "\n Password must contain at least one number."
     // Passwords must contain at least one special character.
-    regex = new RegExp("\W+");
+    regex = new RegExp(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]+/);
     if (!regex.test(password)) errorMessages += "\n Password must contain at least one special character."
     // Passwords cannot contain the word "password"(uppercase, lowercase, or mixed).
     regex = new RegExp("password");
